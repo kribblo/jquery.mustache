@@ -1,3 +1,9 @@
+/*
+ * jquery.mustache - A require.js /AMD friendly jQuery wrapper around mustache.js
+ *
+ * https://github.com/kribblo/jquery.mustache
+ */
+ 
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
