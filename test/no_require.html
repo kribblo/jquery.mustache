@@ -55,7 +55,7 @@
 
 	asyncTest('load', function() {
 		$.Mustache.clear();
-		var jqxhr = $.Mustache.load('index.html');
+		var jqxhr = $.Mustache.load('no_require.html');
 
 		jqxhr.done(function() {
 			ok($.Mustache.templates().length === 1);
@@ -66,7 +66,7 @@
 
 	asyncTest('load onComplete', function() {
 		$.Mustache.clear();
-		$.Mustache.load('index.html', function() {
+		$.Mustache.load('no_require.html', function() {
 			ok($.Mustache.templates().length === 1);
 			strictEqual($.Mustache.templates()[0], 'inline-template');
 			start();
