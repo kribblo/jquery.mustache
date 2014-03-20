@@ -98,6 +98,7 @@
 	 * @param {String} content the template content
 	 */
 	function add(template, content) {
+		Mustache.parse(content);
 		templateMap[template] = content;
 	}
 

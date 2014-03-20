@@ -3,7 +3,7 @@
  *
  * https://github.com/kribblo/jquery.mustache
  */
- 
+
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -675,6 +675,7 @@
 	 * @param {String} content the template content
 	 */
 	function add(template, content) {
+		Mustache.parse(content);
 		templateMap[template] = content;
 	}
 
