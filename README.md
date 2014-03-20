@@ -42,7 +42,7 @@ This document will use the `$.Mustache` style in examples, but it's the same obj
 <script src="jquery.mustache.js"></script>
 ```
 
-Only `$.Mustache`is available.
+Only `$.Mustache` is available.
 
 ### API
 
