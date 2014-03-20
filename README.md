@@ -160,7 +160,7 @@ There are currently no options, but rather sane defaults:
 
 * warnOnMissingTemplates - always fail instead, wrap in try/catch if needed.
 * allowOverwrite - always allowed. Check with `has()` if needed.
-* domTemplateType - always 'text/html' and only actually used in the `load()` method, to find `<script type="text/html">` blocks.
+* domTemplateType - always 'text/html'
 * externalTemplateDataType - not used (but let me know if it is necessary!)
 
 `addFromDom()` needs one string, or an array of strings instead of just looping the special arguments array. This may change if important.
