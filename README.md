@@ -1,4 +1,4 @@
-### jquery.mustache - a require.js/AMD friendly jQuery wrapper around mustache.js
+## require.js/AMD friendly mustache.js jQuery wrapper
 
 Based on [mustache.js](https://github.com/janl/mustache.js/) and mostly compatible with [jquery-Mustache](https://github.com/jonnyreeves/jquery-Mustache),
 this is a project that wraps Mustache in extra jQuery goodness in one single file. Without this, there's a bit too much extra magic to do exactly right to
