@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css">
+</head>
+<body>
+
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+
+<script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
+<script src="require.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+	require.config({
+		baseUrl: ".."
+	});
+	require(['jquery', 'jquery.mustache'], function($, $mustache) {
+
+		function addFromDom() {
+			$mustache.clear();
+			$mustache.addFromDom('inline-template');
+		}
+
+		test('$.Mustache is $mustache', function() {
+			ok($.Mustache === $mustache);
+		});
+
+		test('addFromDom no id list', function() {
+			$mustache.addFromDom();
+			ok($mustache.templates().length === 1);
+			strictEqual($mustache.templates()[0], 'inline-template');
+			ok($mustache.has('inline-template'));
+		});
+
+		test('addFromDom + has', function() {
+			addFromDom();
+			ok($mustache.templates().length === 1);
+			strictEqual($mustache.templates()[0], 'inline-template');
+			ok($mustache.has('inline-template'));
+		});
+
+		test('addFromDom + render', function() {
+			addFromDom();
+
+			var html = $mustache.render('inline-template', {test: 'Replaced value'});
+			strictEqual($.trim(html), '<p>Replaced value</p>');
+		});
+
+		test('addFromDom + remove', function() {
+			addFromDom();
+			$mustache.remove('inline-template');
+			ok($mustache.templates().length === 0);
+		});
+
+		test('add + render', function() {
+			$mustache.clear();
+			$mustache.add('added-template', '<p>{{test}}</p>');
+
+			var html = $mustache.render('added-template', {test: 'Replaced value'});
+			strictEqual(html, '<p>Replaced value</p>');
+		});
+
+		asyncTest('load', function() {
+			$mustache.clear();
+			var jqxhr = $mustache.load('index.html');
+
+			jqxhr.done(function() {
+				ok($mustache.templates().length === 1);
+				strictEqual($mustache.templates()[0], 'inline-template');
+				start();
+			});
+		});
+
+		asyncTest('load onComplete', function() {
+			$mustache.clear();
+			$mustache.load('index.html', function() {
+				ok($mustache.templates().length === 1);
+				strictEqual($mustache.templates()[0], 'inline-template');
+				start();
+			});
+		});
+
+		asyncTest('load partial', function() {
+			$mustache.clear();
+			var jqxhr = $mustache.load('partial.html');
+
+			jqxhr.done(function() {
+				ok($mustache.templates().length === 2);
+				var html = $mustache.render('main', {
+					name: 'David Hasselhoff',
+					title: 'Hoffsite'
+				});
+
+				var title = $(html).find('h1').text();
+				strictEqual(title, 'Hoffsite');
+				var greeting = $(html).find('p').text();
+				strictEqual(greeting, 'Hello David Hasselhoff!');
+
+				start();
+			});
+		});
+
+		test('jQuery plugin rendering', function() {
+			addFromDom();
+			var $renderIntoMe = $('#render-into-me');
+			$renderIntoMe.mustache('inline-template', {test: 'Replaced value'});
+			strictEqual($renderIntoMe.find('p').text(), 'Replaced value');
+		});
+	})
+</script>
+
+<div id="render-into-me" style="display: none;"></div>
+
+<script type="text/html" id="inline-template">
+	<p>{{test}}</p>
+</script>
+
+</body>
+</html>

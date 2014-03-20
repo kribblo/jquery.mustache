@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css">
+</head>
+<body>
+
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+
+<script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="../jquery.mustache.js"></script>
+<script>
+
+	function addFromDom() {
+		$.Mustache.clear();
+		$.Mustache.addFromDom('inline-template');
+	}
+
+	test('addFromDom no id list', function() {
+		$.Mustache.addFromDom();
+		ok($.Mustache.templates().length === 1);
+		strictEqual($.Mustache.templates()[0], 'inline-template');
+		ok($.Mustache.has('inline-template'));
+	});
+
+	test('addFromDom + has', function() {
+		addFromDom();
+		ok($.Mustache.templates().length === 1);
+		strictEqual($.Mustache.templates()[0], 'inline-template');
+		ok($.Mustache.has('inline-template'));
+	});
+
+	test('addFromDom + render', function() {
+		addFromDom();
+
+		var html = $.Mustache.render('inline-template', {test: 'Replaced value'});
+		strictEqual($.trim(html), '<p>Replaced value</p>');
+	});
+
+	test('addFromDom + remove', function() {
+		addFromDom();
+		$.Mustache.remove('inline-template');
+		ok($.Mustache.templates().length === 0);
+	});
+
+	test('add + render', function() {
+		$.Mustache.clear();
+		$.Mustache.add('added-template', '<p>{{test}}</p>');
+
+		var html = $.Mustache.render('added-template', {test: 'Replaced value'});
+		strictEqual(html, '<p>Replaced value</p>');
+	});
+
+	asyncTest('load', function() {
+		$.Mustache.clear();
+		var jqxhr = $.Mustache.load('index.html');
+
+		jqxhr.done(function() {
+			ok($.Mustache.templates().length === 1);
+			strictEqual($.Mustache.templates()[0], 'inline-template');
+			start();
+		});
+	});
+
+	asyncTest('load onComplete', function() {
+		$.Mustache.clear();
+		$.Mustache.load('index.html', function() {
+			ok($.Mustache.templates().length === 1);
+			strictEqual($.Mustache.templates()[0], 'inline-template');
+			start();
+		});
+	});
+
+	asyncTest('load partial', function() {
+		$.Mustache.clear();
+		var jqxhr = $.Mustache.load('partial.html');
+
+		jqxhr.done(function() {
+			ok($.Mustache.templates().length === 2);
+			var html = $.Mustache.render('main', {
+				name: 'David Hasselhoff',
+				title: 'Hoffsite'
+			});
+
+			var title = $(html).find('h1').text();
+			strictEqual(title, 'Hoffsite');
+			var greeting = $(html).find('p').text();
+			strictEqual(greeting, 'Hello David Hasselhoff!');
+
+			start();
+		});
+	});
+
+	test('jQuery plugin rendering', function() {
+		addFromDom();
+		var $renderIntoMe = $('#render-into-me');
+		$renderIntoMe.mustache('inline-template', {test: 'Replaced value'});
+		strictEqual($renderIntoMe.find('p').text(), 'Replaced value');
+	});
+</script>
+
+<div id="render-into-me" style="display: none;"></div>
+
+<script type="text/html" id="inline-template">
+	<p>{{test}}</p>
+</script>
+
+</body>
+</html>
