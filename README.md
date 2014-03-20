@@ -167,6 +167,8 @@ There are currently no options, but rather sane defaults:
 
 `addFromDom()` needs one string, or an array of strings instead of just looping the special arguments array. This may change if important.
 
+Templates are pre-parsed as they are added.
+
 The rest is (hopefully) implemented as documented and actually used, but see also the test suite.
 
 ### Build manually
