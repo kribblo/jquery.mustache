@@ -16,7 +16,7 @@ The only dependency is jQuery.
 You can either use `$.Mustache`:
 
 ```javascript
-require(['jquery'], function($) {
+require(['jquery', 'jquery.mustache'], function($) {
 	$.Mustache.load('template.mustache', function() {
 		...
 	})
