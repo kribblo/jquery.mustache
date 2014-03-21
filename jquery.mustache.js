@@ -578,7 +578,7 @@
 (function (factory) {
 	'use strict';
 	if (typeof define === 'function' && define.amd) {
-		define('jquery.mustache', ['jquery', 'mustache'], factory);
+		define(['jquery', 'mustache'], factory);
 	} else {
 		factory(window.jQuery, window.Mustache);
 	}
