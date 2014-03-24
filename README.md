@@ -33,6 +33,13 @@ require(['jquery', 'jquery.mustache'], function($, $mustache) {
 }
 ```
 
+or, as dependency (with or without `$mustache`object):
+```javascript
+define(['jquery', 'lib/jquery.mustache'], function($, $mustache) {
+	...
+}
+```
+
 This document will use the `$.Mustache` style in examples, but it's the same object.
 
 #### Loading without require.js
