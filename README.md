@@ -153,7 +153,7 @@ Uses `append()` by default, but can be overridden by adding an option "method" s
 
 ```javascript
 var $renderIntoMe = $('#render-into-me');
-$renderIntoMe.mustache('template', {test: 'Replaced value'}, {method: 'html');
+$renderIntoMe.mustache('template', {test: 'Replaced value'}, {method: 'html'});
 ```
 
 ### Partials
