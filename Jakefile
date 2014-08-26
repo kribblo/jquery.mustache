@@ -19,7 +19,7 @@ task('update', function (params) {
 		});
 
 		response.on('end', function() {
-			var updatedMustacheJs = mustacheJs.replace('define(mustache)', 'define(\'mustache\', mustache)');
+			var updatedMustacheJs = mustacheJs.replace('define([\'exports\'], factory)', 'define(\'mustache\', [\'exports\'], factory)');
 			if(updatedMustacheJs === mustacheJs) {
 				fail('Could not rewrite mustache.js, maybe the original file has changed?');
 			}
